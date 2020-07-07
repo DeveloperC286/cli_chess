@@ -1,0 +1,11 @@
+---
+source: src/movement/tests.rs
+expression: movement
+---
+{
+  "class": "QUEEN",
+  "destination": {
+    "rank": "_7",
+    "file": "E"
+  }
+}
