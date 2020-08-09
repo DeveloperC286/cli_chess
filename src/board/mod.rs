@@ -1,56 +1,30 @@
 use std::collections::HashMap;
 
+use crate::board::utilities::{get_positions_with_class, get_positions_with_colour};
 use crate::movement::Movement;
-use crate::piece::{Class, Colour, get_character, Piece};
+use crate::piece::{get_character, Class, Colour, Piece};
 use crate::position::file::File;
-use crate::position::Position;
 use crate::position::rank::Rank;
+use crate::position::Position;
 
-fn get_positions_with_colour(
-    positions: Vec<Position>,
-    piece_positions: &HashMap<Position, Piece>,
-    colour: Colour,
-) -> Vec<Position> {
-    positions
-        .iter()
-        .filter(|position| piece_positions.get(position).unwrap().colour == colour)
-        .copied()
-        .collect()
-}
-
-fn get_positions_with_file(positions: Vec<Position>, file: File) -> Vec<Position> {
-    positions
-        .iter()
-        .filter(|position| position.file == file)
-        .copied()
-        .collect()
-}
-
-fn get_positions_with_class(
-    positions: Vec<Position>,
-    piece_positions: &HashMap<Position, Piece>,
-    class: Class,
-) -> Vec<Position> {
-    positions
-        .iter()
-        .filter(|position| piece_positions.get(position).unwrap().class == class)
-        .copied()
-        .collect()
-}
+pub mod initial_board;
+mod pawn;
+pub mod utilities;
 
 pub fn move_piece(
     turn: Colour,
     movement: Movement,
     piece_positions: &HashMap<Position, Piece>,
 ) -> Option<HashMap<Position, Piece>> {
-    let mut positions: Vec<Position> = piece_positions.keys().copied().collect();
-    positions = get_positions_with_colour(positions, piece_positions, turn);
-    positions = get_positions_with_file(positions, movement.destination.file);
-    positions = get_positions_with_class(positions, piece_positions, Class::PAWN);
-    //TODO pawn blocked logic
-    //TODO pawn stacked logic
-    //TODO pawn take logic
-    //TODO pawn one move max after first move logic
+    let current_colours_positions = get_positions_with_colour(
+        piece_positions.keys().copied().collect(),
+        piece_positions,
+        turn,
+    );
+    let positions = pawn::get_pawns_that_can_make_move(
+        get_positions_with_class(current_colours_positions, piece_positions, Class::PAWN),
+        movement,
+    );
 
     match positions.len() {
         1 => {
@@ -69,151 +43,13 @@ pub fn move_piece(
         }
         _ => {
             println!(
-                "'{}' pieces can make that move, be more specfic.",
+                "'{}' pieces can make that move, be more specific.",
                 positions.len()
             );
         }
     }
 
     None
-}
-
-pub fn get_initial_board() -> HashMap<Position, Piece> {
-    let mut initial_board = HashMap::new();
-
-    // Black
-    initial_board.insert(
-        Position::new(File::A, Rank::_8),
-        Piece::new(Class::ROOK, Colour::BLACK),
-    );
-    initial_board.insert(
-        Position::new(File::B, Rank::_8),
-        Piece::new(Class::KNIGHT, Colour::BLACK),
-    );
-    initial_board.insert(
-        Position::new(File::C, Rank::_8),
-        Piece::new(Class::BISHOP, Colour::BLACK),
-    );
-    initial_board.insert(
-        Position::new(File::D, Rank::_8),
-        Piece::new(Class::QUEEN, Colour::BLACK),
-    );
-    initial_board.insert(
-        Position::new(File::E, Rank::_8),
-        Piece::new(Class::KING, Colour::BLACK),
-    );
-    initial_board.insert(
-        Position::new(File::F, Rank::_8),
-        Piece::new(Class::BISHOP, Colour::BLACK),
-    );
-    initial_board.insert(
-        Position::new(File::G, Rank::_8),
-        Piece::new(Class::KNIGHT, Colour::BLACK),
-    );
-    initial_board.insert(
-        Position::new(File::H, Rank::_8),
-        Piece::new(Class::ROOK, Colour::BLACK),
-    );
-    initial_board.insert(
-        Position::new(File::A, Rank::_7),
-        Piece::new(Class::PAWN, Colour::BLACK),
-    );
-    initial_board.insert(
-        Position::new(File::B, Rank::_7),
-        Piece::new(Class::PAWN, Colour::BLACK),
-    );
-    initial_board.insert(
-        Position::new(File::C, Rank::_7),
-        Piece::new(Class::PAWN, Colour::BLACK),
-    );
-    initial_board.insert(
-        Position::new(File::D, Rank::_7),
-        Piece::new(Class::PAWN, Colour::BLACK),
-    );
-    initial_board.insert(
-        Position::new(File::E, Rank::_7),
-        Piece::new(Class::PAWN, Colour::BLACK),
-    );
-    initial_board.insert(
-        Position::new(File::F, Rank::_7),
-        Piece::new(Class::PAWN, Colour::BLACK),
-    );
-    initial_board.insert(
-        Position::new(File::G, Rank::_7),
-        Piece::new(Class::PAWN, Colour::BLACK),
-    );
-    initial_board.insert(
-        Position::new(File::H, Rank::_7),
-        Piece::new(Class::PAWN, Colour::BLACK),
-    );
-
-    //White
-    initial_board.insert(
-        Position::new(File::A, Rank::_2),
-        Piece::new(Class::PAWN, Colour::WHITE),
-    );
-    initial_board.insert(
-        Position::new(File::B, Rank::_2),
-        Piece::new(Class::PAWN, Colour::WHITE),
-    );
-    initial_board.insert(
-        Position::new(File::C, Rank::_2),
-        Piece::new(Class::PAWN, Colour::WHITE),
-    );
-    initial_board.insert(
-        Position::new(File::D, Rank::_2),
-        Piece::new(Class::PAWN, Colour::WHITE),
-    );
-    initial_board.insert(
-        Position::new(File::E, Rank::_2),
-        Piece::new(Class::PAWN, Colour::WHITE),
-    );
-    initial_board.insert(
-        Position::new(File::F, Rank::_2),
-        Piece::new(Class::PAWN, Colour::WHITE),
-    );
-    initial_board.insert(
-        Position::new(File::G, Rank::_2),
-        Piece::new(Class::PAWN, Colour::WHITE),
-    );
-    initial_board.insert(
-        Position::new(File::H, Rank::_2),
-        Piece::new(Class::PAWN, Colour::WHITE),
-    );
-    initial_board.insert(
-        Position::new(File::A, Rank::_1),
-        Piece::new(Class::ROOK, Colour::WHITE),
-    );
-    initial_board.insert(
-        Position::new(File::B, Rank::_1),
-        Piece::new(Class::KNIGHT, Colour::WHITE),
-    );
-    initial_board.insert(
-        Position::new(File::C, Rank::_1),
-        Piece::new(Class::BISHOP, Colour::WHITE),
-    );
-    initial_board.insert(
-        Position::new(File::D, Rank::_1),
-        Piece::new(Class::QUEEN, Colour::WHITE),
-    );
-    initial_board.insert(
-        Position::new(File::E, Rank::_1),
-        Piece::new(Class::KING, Colour::WHITE),
-    );
-    initial_board.insert(
-        Position::new(File::F, Rank::_1),
-        Piece::new(Class::BISHOP, Colour::WHITE),
-    );
-    initial_board.insert(
-        Position::new(File::G, Rank::_1),
-        Piece::new(Class::KNIGHT, Colour::WHITE),
-    );
-    initial_board.insert(
-        Position::new(File::H, Rank::_1),
-        Piece::new(Class::ROOK, Colour::WHITE),
-    );
-
-    initial_board
 }
 
 pub fn get_board(piece_positions: &HashMap<Position, Piece>) -> Vec<String> {

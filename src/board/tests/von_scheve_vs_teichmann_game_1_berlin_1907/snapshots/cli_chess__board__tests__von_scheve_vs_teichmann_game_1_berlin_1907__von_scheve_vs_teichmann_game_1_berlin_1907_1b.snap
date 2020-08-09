@@ -1,12 +1,12 @@
 ---
-source: src/board/tests.rs
+source: src/board/tests/von_scheve_vs_teichmann_game_1_berlin_1907/mod.rs
 expression: get_board(&piece_positions)
 ---
 [
   " r n b q k b n r",
-  " p p p p p p p p",
+  " p p p p - p p p",
   " - - - - - - - -",
-  " - - - - - - - -",
+  " - - - - p - - -",
   " - - - - P - - -",
   " - - - - - - - -",
   " P P P P - P P P",

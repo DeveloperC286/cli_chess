@@ -1,6 +1,7 @@
 use std::io::{stdin, stdout, Write};
 
-use crate::board::{get_board, get_initial_board, move_piece, print_board};
+use crate::board::initial_board::get_initial_board;
+use crate::board::{get_board, move_piece, print_board};
 use crate::movement::to_movement;
 use crate::piece::Colour;
 
@@ -25,19 +26,23 @@ pub fn repl() {
                 print_board(get_board(&piece_positions));
             }
             _ => match to_movement(&*input) {
-                Some(movement) => if let Some(updated_piece_positions) = move_piece(colours_turn, movement, &piece_positions) {
-                    //move piece
-                    piece_positions = updated_piece_positions;
+                Some(movement) => {
+                    if let Some(updated_piece_positions) =
+                        move_piece(colours_turn, movement, &piece_positions)
+                    {
+                        //move piece
+                        piece_positions = updated_piece_positions;
 
-                    //update state for next turn
-                    if colours_turn == Colour::WHITE {
-                        turn += 1;
-                        moves.push_str(&format!("{}. ", turn));
+                        //update state for next turn
+                        if colours_turn == Colour::WHITE {
+                            turn += 1;
+                            moves.push_str(&format!("{}. ", turn));
+                        }
+                        colours_turn = next_turn(colours_turn);
+                        moves.push_str(&format!("{} ", input));
+                        println!("{}", moves);
                     }
-                    colours_turn = next_turn(colours_turn);
-                    moves.push_str(&format!("{} ", input));
-                    println!("{}", moves);
-                },
+                }
                 None => {
                     println!("'{}' is not a recongised command or movement.", input);
                 }

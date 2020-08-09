@@ -2,7 +2,7 @@ use std::iter::FromIterator;
 
 use serde::Serialize;
 
-use crate::piece::{Class, get_class};
+use crate::piece::{get_class, Class};
 use crate::position::{get_position, Position};
 
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy, Serialize)]
@@ -26,12 +26,14 @@ pub fn to_movement(movement: &str) -> Option<Movement> {
                 }
             }
         }
-        2 => if let Some(destination) = get_position(movement) {
-            return Some(Movement {
-                class: None,
-                destination,
-            });
-        },
+        2 => {
+            if let Some(destination) = get_position(movement) {
+                return Some(Movement {
+                    class: None,
+                    destination,
+                });
+            }
+        }
         _ => {
             error!("Do not know how to handle movement '{}'.", movement);
         }

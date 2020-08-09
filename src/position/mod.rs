@@ -1,7 +1,7 @@
 use serde::Serialize;
 
-use file::{File, to_file};
-use rank::{Rank, to_rank};
+use file::{to_file, File};
+use rank::{to_rank, Rank};
 
 pub mod file;
 pub mod rank;
