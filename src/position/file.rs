@@ -1,5 +1,6 @@
-use serde::Serialize;
 use std::slice::Iter;
+
+use serde::Serialize;
 
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy, Serialize)]
 pub enum File {
@@ -41,7 +42,7 @@ pub fn to_file(file: char) -> Option<File> {
         'H' | 'h' => Some(File::H),
         _ => {
             error!("Can not convert '{}' to a file.", file);
-            return None;
+            None
         }
     }
 }

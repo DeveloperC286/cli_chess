@@ -1,6 +1,8 @@
-extern crate pretty_env_logger;
 #[macro_use]
 extern crate log;
+extern crate pretty_env_logger;
+
+use std::io::{stdin, stdout, Write};
 
 use console::Term;
 
@@ -11,8 +13,6 @@ mod position;
 mod pratice;
 mod utilities;
 
-use std::io::{stdin, stdout, Write};
-
 fn main() {
     pretty_env_logger::init();
     print_introduction_screen();
@@ -20,10 +20,15 @@ fn main() {
 }
 
 fn print_introduction_screen() {
-    let term = Term::stdout();
-    term.clear_screen();
-    println!("{}", utilities::WIZARD);
-    println!("Welcome my little Chess Wizard!");
+    match Term::stdout().clear_screen() {
+        Ok(_) => {
+            println!("{}", utilities::WIZARD);
+            println!("Welcome my little Chess Wizard!");
+        }
+        Err(error) => {
+            error!("{}", error);
+        }
+    }
 }
 
 fn repl() {
@@ -58,5 +63,5 @@ fn read() -> String {
         Err(error) => error!("Error reading user input: {}", error),
     }
 
-    return buffer;
+    buffer
 }

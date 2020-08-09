@@ -41,7 +41,7 @@ pub fn to_rank(rank: char) -> Option<Rank> {
         '8' => Some(Rank::_8),
         _ => {
             error!("Can not convert '{}' to a rank.", rank);
-            return None;
+            None
         }
     }
 }

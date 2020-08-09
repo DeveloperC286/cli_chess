@@ -1,6 +1,7 @@
-use file::{to_file, File};
-use rank::{to_rank, Rank};
 use serde::Serialize;
+
+use file::{File, to_file};
+use rank::{Rank, to_rank};
 
 pub mod file;
 pub mod rank;
@@ -20,17 +21,14 @@ impl Position {
 pub fn get_position(position: &str) -> Option<Position> {
     match position.len() {
         2 => {
-            let file_option = to_file(position.chars().nth(0).unwrap());
-            let rank_option = to_rank(position.chars().nth(1).unwrap());
+            let mut characters = position.chars();
+            let file_option = to_file(characters.next().unwrap());
+            let rank_option = to_rank(characters.next().unwrap());
 
-            match file_option {
-                Some(file) => match rank_option {
-                    Some(rank) => {
-                        return Some(Position::new(file, rank));
-                    }
-                    None => {}
-                },
-                None => {}
+            if let Some(file) = file_option {
+                if let Some(rank) = rank_option {
+                    return Some(Position::new(file, rank));
+                }
             }
         }
         _ => {
@@ -38,5 +36,5 @@ pub fn get_position(position: &str) -> Option<Position> {
         }
     }
 
-    return None;
+    None
 }

@@ -1,7 +1,9 @@
-use crate::piece::{get_class, Class};
-use crate::position::{get_position, Position};
-use serde::Serialize;
 use std::iter::FromIterator;
+
+use serde::Serialize;
+
+use crate::piece::{Class, get_class};
+use crate::position::{get_position, Position};
 
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy, Serialize)]
 pub struct Movement {
@@ -15,34 +17,27 @@ pub fn to_movement(movement: &str) -> Option<Movement> {
             let mut characters = movement.chars();
             let character = characters.next().unwrap();
             let position = &String::from_iter(characters);
-            match get_class(character) {
-                Some(class) => match get_position(position) {
-                    Some(destination) => {
-                        return Some(Movement {
-                            class: Some(class),
-                            destination,
-                        });
-                    }
-                    None => {}
-                },
-                None => {}
+            if let Some(class) = get_class(character) {
+                if let Some(destination) = get_position(position) {
+                    return Some(Movement {
+                        class: Some(class),
+                        destination,
+                    });
+                }
             }
         }
-        2 => match get_position(movement) {
-            Some(destination) => {
-                return Some(Movement {
-                    class: None,
-                    destination,
-                });
-            }
-            None => {}
+        2 => if let Some(destination) = get_position(movement) {
+            return Some(Movement {
+                class: None,
+                destination,
+            });
         },
         _ => {
             error!("Do not know how to handle movement '{}'.", movement);
         }
     }
 
-    return None;
+    None
 }
 
 #[cfg(test)]

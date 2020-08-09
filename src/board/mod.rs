@@ -1,28 +1,29 @@
-use crate::movement::Movement;
-use crate::piece::{get_character, Class, Colour, Piece};
-use crate::position::file::File;
-use crate::position::rank::Rank;
-use crate::position::Position;
 use std::collections::HashMap;
+
+use crate::movement::Movement;
+use crate::piece::{Class, Colour, get_character, Piece};
+use crate::position::file::File;
+use crate::position::Position;
+use crate::position::rank::Rank;
 
 fn get_positions_with_colour(
     positions: Vec<Position>,
     piece_positions: &HashMap<Position, Piece>,
     colour: Colour,
 ) -> Vec<Position> {
-    return positions
+    positions
         .iter()
         .filter(|position| piece_positions.get(position).unwrap().colour == colour)
-        .map(|x| *x)
-        .collect();
+        .copied()
+        .collect()
 }
 
 fn get_positions_with_file(positions: Vec<Position>, file: File) -> Vec<Position> {
-    return positions
+    positions
         .iter()
         .filter(|position| position.file == file)
-        .map(|x| *x)
-        .collect();
+        .copied()
+        .collect()
 }
 
 fn get_positions_with_class(
@@ -30,11 +31,11 @@ fn get_positions_with_class(
     piece_positions: &HashMap<Position, Piece>,
     class: Class,
 ) -> Vec<Position> {
-    return positions
+    positions
         .iter()
         .filter(|position| piece_positions.get(position).unwrap().class == class)
-        .map(|x| *x)
-        .collect();
+        .copied()
+        .collect()
 }
 
 pub fn move_piece(
@@ -42,7 +43,7 @@ pub fn move_piece(
     movement: Movement,
     piece_positions: &HashMap<Position, Piece>,
 ) -> Option<HashMap<Position, Piece>> {
-    let mut positions: Vec<Position> = piece_positions.keys().map(|x| *x).collect();
+    let mut positions: Vec<Position> = piece_positions.keys().copied().collect();
     positions = get_positions_with_colour(positions, piece_positions, turn);
     positions = get_positions_with_file(positions, movement.destination.file);
     positions = get_positions_with_class(positions, piece_positions, Class::PAWN);
@@ -74,7 +75,7 @@ pub fn move_piece(
         }
     }
 
-    return None;
+    None
 }
 
 pub fn get_initial_board() -> HashMap<Position, Piece> {
@@ -229,7 +230,7 @@ pub fn get_board(piece_positions: &HashMap<Position, Piece>) -> Vec<String> {
         board.push(rank_representation);
     }
 
-    return board;
+    board
 }
 
 pub fn print_board(board: Vec<String>) {

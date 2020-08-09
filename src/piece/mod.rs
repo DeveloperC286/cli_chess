@@ -32,10 +32,10 @@ pub fn get_character(piece: Piece) -> char {
         Class::PAWN => 'p',
     };
 
-    return match piece.colour {
-        Colour::WHITE => character.to_uppercase().nth(0).unwrap(),
+    match piece.colour {
+        Colour::WHITE => character.to_uppercase().next().unwrap(),
         Colour::BLACK => character,
-    };
+    }
 }
 
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy, Serialize)]

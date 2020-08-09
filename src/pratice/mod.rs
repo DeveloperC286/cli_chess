@@ -25,21 +25,18 @@ pub fn repl() {
                 print_board(get_board(&piece_positions));
             }
             _ => match to_movement(&*input) {
-                Some(movement) => match move_piece(colours_turn, movement, &piece_positions) {
-                    Some(updated_piece_positions) => {
-                        //move piece
-                        piece_positions = updated_piece_positions;
+                Some(movement) => if let Some(updated_piece_positions) = move_piece(colours_turn, movement, &piece_positions) {
+                    //move piece
+                    piece_positions = updated_piece_positions;
 
-                        //update state for next turn
-                        if colours_turn == Colour::WHITE {
-                            turn += 1;
-                            moves.push_str(&format!("{}. ", turn));
-                        }
-                        colours_turn = next_turn(colours_turn);
-                        moves.push_str(&format!("{} ", input));
-                        println!("{}", moves);
+                    //update state for next turn
+                    if colours_turn == Colour::WHITE {
+                        turn += 1;
+                        moves.push_str(&format!("{}. ", turn));
                     }
-                    None => {}
+                    colours_turn = next_turn(colours_turn);
+                    moves.push_str(&format!("{} ", input));
+                    println!("{}", moves);
                 },
                 None => {
                     println!("'{}' is not a recongised command or movement.", input);
@@ -67,5 +64,5 @@ fn read() -> String {
         Err(error) => error!("Error reading user input: {}", error),
     }
 
-    return buffer;
+    buffer
 }
