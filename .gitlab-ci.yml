@@ -1,0 +1,120 @@
+stages:
+    - formatting
+    - linting
+    - conventional-commits-linting
+    - conventional-commits-next-version-checking
+    - version-badge-checking
+    - compiling
+    - unit-testing
+    - releasing
+
+
+formatting:
+    stage: formatting
+    image: rust
+    before_script:
+        - rustup component add rustfmt
+    script:
+        - for i in $( du -a . | awk '{print $2}' | grep -i "[.]rs$" ); do
+        -   cp $i temp.txt
+        -   rustfmt $i
+        -   cmp $i temp.txt
+        - done
+    rules:
+        - if: $CI_MERGE_REQUEST_ID
+
+
+linting:
+    stage: linting
+    image: rust
+    before_script:
+        - rustup component add clippy
+    script:
+        - cargo clippy -- -D warnings
+    rules:
+        - if: $CI_MERGE_REQUEST_ID
+
+
+conventional-commits-linting:
+    stage: conventional-commits-linting
+    image: node
+    before_script:
+        - npm install -g @commitlint/cli @commitlint/config-conventional
+    script:
+        - BRANCH_FIRST_COMMIT=`git log --pretty=tformat:"%H" origin/$CI_MERGE_REQUEST_SOURCE_BRANCH_NAME --not origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME | tail -1`
+        # Lint all the commits in the branch.
+        - commitlint --from=$BRANCH_FIRST_COMMIT
+    rules:
+        - if: $CI_MERGE_REQUEST_ID
+
+
+conventional-commits-next-version-checking:
+    stage: conventional-commits-next-version-checking
+    image: archlinux/base
+    before_script:
+        - pacman -Syu --noconfirm
+        - pacman -S diffutils unzip nettle wget git --noconfirm
+    script:
+        # Get current version and latest tag.
+        - CURRENT_VERSION=`grep '^version = "[0-9][0-9]*.[0-9][0-9]*.[0-9][0-9]*"$' Cargo.toml | cut -d '"' -f 2`
+        - LATEST_TAG=`git tag -l | sort -r | head -1`
+        - LATEST_TAG_HASH=`git rev-parse $LATEST_TAG`
+        # Download conventional_commits_next_version binary.
+        - wget https://gitlab.com/DeveloperC/conventional_commits_next_version/-/jobs/artifacts/1.1.0/download?job=building-release-binary-linux-musl
+        - unzip download\?job=building-release-binary-linux-musl
+        # Check current vs expected.
+        - ./conventional_commits_next_version --batch-commits --from-commit-hash $LATEST_TAG_HASH --from-version $LATEST_TAG --current-version $CURRENT_VERSION
+    rules:
+        - if: $CI_MERGE_REQUEST_ID
+
+
+version-badge-checking:
+    stage: version-badge-checking
+    image: alpine
+    script:
+        - CURRENT_VERSION=`grep '^version = "[0-9][0-9]*.[0-9][0-9]*.[0-9][0-9]*"$' Cargo.toml | cut -d '"' -f 2`
+        - BADGE_COUNT=`grep "(https://img.shields.io/badge/Version-$CURRENT_VERSION-blue)]" README.md | wc -l`
+        - test $BADGE_COUNT -eq 1
+    rules:
+        - if: $CI_MERGE_REQUEST_ID
+
+
+compiling:
+    stage: compiling
+    image: rust
+    script:
+        - cargo build
+    rules:
+        - if: $CI_MERGE_REQUEST_ID
+        - if: $CI_COMMIT_BRANCH == "master"
+
+
+unit-testing:
+    stage: unit-testing
+    image: rust
+    script:
+        - cargo test
+    rules:
+        - if: $CI_MERGE_REQUEST_ID
+        - if: $CI_COMMIT_BRANCH == "master"
+
+
+releasing:
+    stage: releasing
+    image: registry.gitlab.com/gitlab-org/release-cli
+    before_script:
+        - apk add git
+    script:
+        - CURRENT_VERSION=`grep '^version = "[0-9][0-9]*.[0-9][0-9]*.[0-9][0-9]*"$' Cargo.toml | cut -d '"' -f 2`
+        - TAG_EXISTS=`git show-ref --tags -d | awk "/ refs\/tags\/$CURRENT_VERSION/" | wc -l`
+        # If the tag already exist then exit.
+        - test $TAG_EXISTS -eq 1 && exit 0
+        # Getting the release description.
+        - LATEST_TAG_HASH=`git rev-parse $(git tag -l | sort -r | head -1)`
+        - wget https://github.com/clog-tool/clog-cli/releases/download/v0.9.3/clog-v0.9.3-x86_64-unknown-linux-musl.tar.gz
+        - tar xvf clog-v0.9.3-x86_64-unknown-linux-musl.tar.gz
+        - RELEASE_DESCRIPTION=`./clog --from $LATEST_TAG_HASH --link-style Gitlab --subtitle $CURRENT_VERSION | tail -n +2`
+        # Create the new release.
+        - release-cli create --name $CURRENT_VERSION --description "$RELEASE_DESCRIPTION" --tag-name $CURRENT_VERSION --ref $CI_COMMIT_SHA
+    rules:
+        - if: $CI_COMMIT_BRANCH == "master"
