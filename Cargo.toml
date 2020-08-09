@@ -1,8 +1,14 @@
 [package]
 name = "cli_chess"
+description = "A program to play chess on the command line."
 version = "0.1.0"
 authors = ["C <DeveloperC@protonmail.com>"]
 edition = "2018"
+license = "GPL-3.0"
+repository = "https://gitlab.com/DeveloperC/cli_chess"
+readme = "README.md"
+keywords = ["chess", "cli", "game", "board", "player"]
+categories = ["games", "command-line-utilities"]
 
 [dependencies]
 pretty_env_logger = "0.4.0"
