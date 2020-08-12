@@ -7,6 +7,7 @@ stages:
     - compiling
     - unit-testing
     - releasing
+    - crates-io-publishing
 
 
 formatting:
@@ -118,3 +119,12 @@ releasing:
         - release-cli create --name $CURRENT_VERSION --description "$RELEASE_DESCRIPTION" --tag-name $CURRENT_VERSION --ref $CI_COMMIT_SHA
     rules:
         - if: $CI_COMMIT_BRANCH == "master"
+
+
+crates-io-publishing:
+    stage: crates-io-publishing
+    image: rust
+    script:
+        - cargo publish --token $GITLAB_CRATES_IO_TOKEN
+    rules:
+        - if: $CI_COMMIT_TAG
