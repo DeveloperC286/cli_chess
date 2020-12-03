@@ -13,15 +13,15 @@ fn von_scheve_vs_teichmann_game_1_berlin_1907() {
     piece_positions = move_piece(Colour::BLACK, movement, &piece_positions).unwrap();
     assert_json_snapshot!("1b", get_board(&piece_positions));
 
-    movement = to_movement("Nf3").unwrap();
-    piece_positions = move_piece(Colour::WHITE, movement, &piece_positions).unwrap();
+    //movement = to_movement("Nf3").unwrap();
+    //piece_positions = move_piece(Colour::WHITE, movement, &piece_positions).unwrap();
     /*    assert_json_snapshot!(
         "2w",
         get_board(&piece_positions)
     );*/
 
-    movement = to_movement("Nc6").unwrap();
-    piece_positions = move_piece(Colour::BLACK, movement, &piece_positions).unwrap();
+    //movement = to_movement("Nc6").unwrap();
+    //piece_positions = move_piece(Colour::BLACK, movement, &piece_positions).unwrap();
     /*    assert_json_snapshot!(
         "2b",
         get_board(&piece_positions)
