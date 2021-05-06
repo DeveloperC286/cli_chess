@@ -8,7 +8,7 @@ use crate::piece::Colour;
 pub fn repl() {
     println!("New pratice game...");
     let mut piece_positions = get_initial_board();
-    let mut colours_turn = Colour::WHITE;
+    let mut colours_turn = Colour::White;
     let mut turn = 0;
     let mut moves = String::new();
 
@@ -34,7 +34,7 @@ pub fn repl() {
                         piece_positions = updated_piece_positions;
 
                         //update state for next turn
-                        if colours_turn == Colour::WHITE {
+                        if colours_turn == Colour::White {
                             turn += 1;
                             moves.push_str(&format!("{}. ", turn));
                         }
@@ -53,8 +53,8 @@ pub fn repl() {
 
 fn next_turn(colour: Colour) -> Colour {
     match colour {
-        Colour::WHITE => Colour::BLACK,
-        Colour::BLACK => Colour::WHITE,
+        Colour::White => Colour::Black,
+        Colour::Black => Colour::White,
     }
 }
 

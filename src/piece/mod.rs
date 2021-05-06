@@ -33,15 +33,15 @@ pub fn get_character(piece: Piece) -> char {
     };
 
     match piece.colour {
-        Colour::WHITE => character.to_uppercase().next().unwrap(),
-        Colour::BLACK => character,
+        Colour::White => character.to_uppercase().next().unwrap(),
+        Colour::Black => character,
     }
 }
 
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy, Serialize)]
 pub enum Colour {
-    BLACK,
-    WHITE,
+    Black,
+    White,
 }
 
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy, Serialize)]

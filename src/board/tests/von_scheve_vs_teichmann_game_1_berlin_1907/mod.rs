@@ -6,11 +6,11 @@ fn von_scheve_vs_teichmann_game_1_berlin_1907() {
     let mut piece_positions = crate::board::initial_board::get_initial_board();
 
     let mut movement = to_movement("e4").unwrap();
-    piece_positions = move_piece(Colour::WHITE, movement, &piece_positions).unwrap();
+    piece_positions = move_piece(Colour::White, movement, &piece_positions).unwrap();
     assert_json_snapshot!("1w", get_board(&piece_positions));
 
     movement = to_movement("e5").unwrap();
-    piece_positions = move_piece(Colour::BLACK, movement, &piece_positions).unwrap();
+    piece_positions = move_piece(Colour::Black, movement, &piece_positions).unwrap();
     assert_json_snapshot!("1b", get_board(&piece_positions));
 
     //movement = to_movement("Nf3").unwrap();
