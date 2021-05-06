@@ -3,7 +3,7 @@ source: src/movement/tests.rs
 expression: movement
 ---
 {
-  "class": "QUEEN",
+  "class": "Queen",
   "destination": {
     "rank": "_7",
     "file": "E"

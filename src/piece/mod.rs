@@ -2,34 +2,34 @@ use serde::Serialize;
 
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy, Serialize)]
 pub enum Class {
-    KING,
-    QUEEN,
-    ROOK,
-    KNIGHT,
-    BISHOP,
-    PAWN,
+    King,
+    Queen,
+    Rook,
+    Knight,
+    Bishop,
+    Pawn,
 }
 
 pub fn get_class(character: char) -> Option<Class> {
     match character {
-        'k' | 'K' => Some(Class::KING),
-        'q' | 'Q' => Some(Class::QUEEN),
-        'r' | 'R' => Some(Class::ROOK),
-        'n' | 'N' => Some(Class::KNIGHT),
-        'b' | 'B' => Some(Class::BISHOP),
-        'p' | 'P' => Some(Class::PAWN),
+        'k' | 'K' => Some(Class::King),
+        'q' | 'Q' => Some(Class::Queen),
+        'r' | 'R' => Some(Class::Rook),
+        'n' | 'N' => Some(Class::Knight),
+        'b' | 'B' => Some(Class::Bishop),
+        'p' | 'P' => Some(Class::Pawn),
         _ => None,
     }
 }
 
 pub fn get_character(piece: Piece) -> char {
     let character = match piece.class {
-        Class::KING => 'k',
-        Class::QUEEN => 'q',
-        Class::ROOK => 'r',
-        Class::KNIGHT => 'n',
-        Class::BISHOP => 'b',
-        Class::PAWN => 'p',
+        Class::King => 'k',
+        Class::Queen => 'q',
+        Class::Rook => 'r',
+        Class::Knight => 'n',
+        Class::Bishop => 'b',
+        Class::Pawn => 'p',
     };
 
     match piece.colour {

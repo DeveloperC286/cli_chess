@@ -22,7 +22,7 @@ pub fn move_piece(
         turn,
     );
     let positions = pawn::get_pawns_that_can_make_move(
-        get_positions_with_class(current_colours_positions, piece_positions, Class::PAWN),
+        get_positions_with_class(current_colours_positions, piece_positions, Class::Pawn),
         movement,
     );
 
