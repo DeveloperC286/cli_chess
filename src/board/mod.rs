@@ -1,11 +1,12 @@
 use std::collections::HashMap;
 
 use crate::board::utilities::{get_positions_with_class, get_positions_with_colour};
+use crate::model::colour::Colour;
 use crate::movement::Movement;
-use crate::piece::{get_character, Class, Colour, Piece};
+use crate::piece::{Class, get_character, Piece};
 use crate::position::file::File;
-use crate::position::rank::Rank;
 use crate::position::Position;
+use crate::position::rank::Rank;
 
 pub mod initial_board;
 mod pawn;

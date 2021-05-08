@@ -1,9 +1,10 @@
 use std::collections::HashMap;
 
-use crate::piece::{Class, Colour, Piece};
+use crate::model::colour::Colour;
+use crate::piece::{Class, Piece};
 use crate::position::file::File;
-use crate::position::rank::Rank;
 use crate::position::Position;
+use crate::position::rank::Rank;
 
 pub fn get_initial_board() -> HashMap<Position, Piece> {
     let mut initial_board = HashMap::new();

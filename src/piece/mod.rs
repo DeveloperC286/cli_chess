@@ -1,5 +1,7 @@
 use serde::Serialize;
 
+use crate::model::colour::Colour;
+
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy, Serialize)]
 pub enum Class {
     King,
@@ -36,12 +38,6 @@ pub fn get_character(piece: Piece) -> char {
         Colour::White => character.to_uppercase().next().unwrap(),
         Colour::Black => character,
     }
-}
-
-#[derive(Debug, PartialEq, Eq, Hash, Clone, Copy, Serialize)]
-pub enum Colour {
-    Black,
-    White,
 }
 
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy, Serialize)]

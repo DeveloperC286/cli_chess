@@ -12,6 +12,7 @@ mod piece;
 mod position;
 mod practice;
 mod utilities;
+mod model;
 
 fn main() {
     pretty_env_logger::init();
