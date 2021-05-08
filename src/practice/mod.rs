@@ -2,7 +2,7 @@ use std::io::{stdin, stdout, Write};
 
 use crate::board::{get_board, move_piece, print_board};
 use crate::board::initial_board::get_initial_board;
-use crate::model::colour::Colour;
+use crate::model::piece::colour::Colour;
 use crate::movement::to_movement;
 
 pub fn repl() {

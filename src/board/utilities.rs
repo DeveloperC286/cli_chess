@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 
-use crate::model::class::Class;
-use crate::model::colour::Colour;
+use crate::model::piece::class::Class;
+use crate::model::piece::colour::Colour;
 use crate::model::piece::Piece;
 use crate::position::file::File;
 use crate::position::Position;

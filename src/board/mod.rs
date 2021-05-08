@@ -1,8 +1,8 @@
 use std::collections::HashMap;
 
 use crate::board::utilities::{get_positions_with_class, get_positions_with_colour};
-use crate::model::class::Class;
-use crate::model::colour::Colour;
+use crate::model::piece::class::Class;
+use crate::model::piece::colour::Colour;
 use crate::model::piece::*;
 use crate::movement::Movement;
 use crate::position::file::File;

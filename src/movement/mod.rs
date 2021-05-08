@@ -2,7 +2,7 @@ use std::iter::FromIterator;
 
 use serde::Serialize;
 
-use crate::model::class::*;
+use crate::model::piece::class::Class;
 use crate::position::{get_position, Position};
 
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy, Serialize)]
