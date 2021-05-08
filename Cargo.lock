@@ -32,6 +32,7 @@ version = "0.2.0"
 dependencies = [
  "console",
  "insta",
+ "lazy_static",
  "log",
  "pretty_env_logger",
  "rstest",

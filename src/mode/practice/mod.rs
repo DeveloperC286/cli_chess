@@ -1,4 +1,3 @@
-use crate::board::initial_board::get_initial_board;
 use crate::board::{get_board, move_piece, print_board};
 use crate::model::movement::Movement;
 use crate::model::piece::colour::Colour;
@@ -25,7 +24,7 @@ impl Practice {
             }
         }
         println!("New practice game...");
-        let mut piece_positions = get_initial_board();
+        let mut piece_positions = crate::board::initial_board::INITIAL_BOARD.clone();
         let mut colours_turn = Colour::White;
         let mut turn = 0;
         let mut moves = String::new();

@@ -3,7 +3,7 @@ use super::*;
 //1. e4  e5  2. Nf3  Nc6  3. Bc4 Bc5 4. c3 Qe7 5. O-O d6 6. d4 Bb6 7. a4 a6 8. a5 Ba7 9. h3 Nf6 10. dxe5 Nxe5 11. Nxe5 Qxe5 12. Nd2 Bxh3 13. gxh3 Qg3+ 14. Kh1 Qxh3+ 15. Kg1 Ng4 16. Nf3 Qg3+ 17. Kh1 Bxf2
 #[test]
 fn von_scheve_vs_teichmann_game_1_berlin_1907() {
-    let mut piece_positions = crate::board::initial_board::get_initial_board();
+    let mut piece_positions = crate::board::initial_board::INITIAL_BOARD.clone();
 
     let mut movement = Movement::from("e4").unwrap();
     piece_positions = move_piece(Colour::White, movement, &piece_positions).unwrap();
