@@ -8,7 +8,6 @@ use console::Term;
 
 mod board;
 mod model;
-mod movement;
 mod practice;
 mod utilities;
 

@@ -2,8 +2,8 @@ use std::io::{stdin, stdout, Write};
 
 use crate::board::initial_board::get_initial_board;
 use crate::board::{get_board, move_piece, print_board};
+use crate::model::movement::Movement;
 use crate::model::piece::colour::Colour;
-use crate::movement::to_movement;
 
 pub fn repl() {
     println!("New practice game...");
@@ -33,7 +33,7 @@ pub fn repl() {
             "toggle-rand-and-file" => {
                 print_rank_and_file = !print_rank_and_file;
             }
-            _ => match to_movement(&*input) {
+            _ => match Movement::from(&*input) {
                 Some(movement) => {
                     if let Some(updated_piece_positions) =
                         move_piece(colours_turn, movement, &piece_positions)

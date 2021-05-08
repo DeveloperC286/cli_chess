@@ -1,0 +1,16 @@
+---
+source: src/model/movement/tests/mod.rs
+expression: movement
+
+---
+Some(
+    Movement {
+        class: Some(
+            King,
+        ),
+        destination: Position {
+            rank: _4,
+            file: E,
+        },
+    },
+)

@@ -1,6 +1,6 @@
 use insta::assert_json_snapshot;
 
-use crate::movement::to_movement;
+use crate::model::movement::Movement;
 
 use super::*;
 
