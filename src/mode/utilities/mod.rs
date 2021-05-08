@@ -1,3 +1,5 @@
+use std::io::{stdin, stdout, Write};
+
 pub const WIZARD: &str = "
                                   ....
                                 .'' .'''
@@ -32,3 +34,17 @@ pub const WIZARD: &str = "
                  '._____|'.\\......'''''''.:..'''
                             \\
 ";
+
+pub fn read_stdin() -> String {
+    let mut buffer = String::new();
+
+    print!(" > ");
+    let _ = stdout().flush();
+
+    match stdin().read_line(&mut buffer) {
+        Ok(_n) => {}
+        Err(error) => error!("Error reading user input: {}", error),
+    }
+
+    buffer
+}
