@@ -11,6 +11,7 @@ pub fn repl() {
     let mut colours_turn = Colour::White;
     let mut turn = 0;
     let mut moves = String::new();
+    let mut toggle_board = false;
 
     help();
     loop {
@@ -24,6 +25,9 @@ pub fn repl() {
             }
             "board" => {
                 print_board(get_board(&piece_positions));
+            }
+            "toggle-board" => {
+                toggle_board = !toggle_board;
             }
             _ => match to_movement(&*input) {
                 Some(movement) => {
@@ -42,6 +46,11 @@ pub fn repl() {
                         moves.push_str(&format!("{} ", input));
                         println!("{}", moves);
                     }
+
+                    if toggle_board {
+                        println!();
+                        print_board(get_board(&piece_positions));
+                    }
                 }
                 None => {
                     println!("'{}' is not a recognised command or movement.", input);
@@ -56,6 +65,7 @@ fn help() {
     println!("help - print this message.");
     println!("exit - return to the main menu.");
     println!("board - print the chess board.");
+    println!("toggle-board - print the chess board after ever move.");
     println!("<chess move> - move a chess piece.");
     println!();
 }
