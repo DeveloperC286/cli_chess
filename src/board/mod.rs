@@ -3,8 +3,8 @@ use std::collections::HashMap;
 use crate::board::utilities::{get_positions_with_class, get_positions_with_colour};
 use crate::model::class::Class;
 use crate::model::colour::Colour;
+use crate::model::piece::*;
 use crate::movement::Movement;
-use crate::piece::*;
 use crate::position::file::File;
 use crate::position::Position;
 use crate::position::rank::Rank;
@@ -61,7 +61,7 @@ pub fn get_board(piece_positions: &HashMap<Position, Piece>) -> Vec<String> {
         let mut rank_representation = String::new();
         for file in File::iterator() {
             match piece_positions.get(&Position::new(*file, *rank)) {
-                Some(piece) => rank_representation.push_str(&format!(" {}", get_character(*piece))),
+                Some(piece) => rank_representation.push_str(&format!(" {}", piece.get_character())),
                 None => rank_representation.push_str(" -"),
             }
         }
