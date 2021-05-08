@@ -7,8 +7,8 @@ use std::io::{stdin, stdout, Write};
 use console::Term;
 
 mod board;
+mod mode;
 mod model;
-mod practice;
 mod utilities;
 
 fn main() {
@@ -40,7 +40,7 @@ fn repl() {
                 std::process::exit(0);
             }
             "practice" => {
-                practice::repl();
+                crate::mode::practice::repl();
             }
             _ => {
                 println!("Did not understand the command...");

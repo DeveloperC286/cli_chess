@@ -6,8 +6,8 @@ use crate::model::piece::class::Class;
 use crate::model::piece::colour::Colour;
 use crate::model::piece::Piece;
 use crate::model::position::file::File;
-use crate::model::position::rank::Rank;
 use crate::model::position::Position;
+use crate::model::position::rank::Rank;
 
 pub mod initial_board;
 mod pawn;
