@@ -2,7 +2,7 @@ use std::iter::FromIterator;
 
 use serde::Serialize;
 
-use crate::piece::{Class, get_class};
+use crate::model::class::*;
 use crate::position::{get_position, Position};
 
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy, Serialize)]
@@ -17,7 +17,7 @@ pub fn to_movement(movement: &str) -> Option<Movement> {
             let mut characters = movement.chars();
             let character = characters.next().unwrap();
             let position = &String::from_iter(characters);
-            if let Some(class) = get_class(character) {
+            if let Some(class) = Class::from(character) {
                 if let Some(destination) = get_position(position) {
                     return Some(Movement {
                         class: Some(class),

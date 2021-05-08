@@ -1,9 +1,10 @@
 use std::collections::HashMap;
 
 use crate::board::utilities::{get_positions_with_class, get_positions_with_colour};
+use crate::model::class::Class;
 use crate::model::colour::Colour;
 use crate::movement::Movement;
-use crate::piece::{Class, get_character, Piece};
+use crate::piece::*;
 use crate::position::file::File;
 use crate::position::Position;
 use crate::position::rank::Rank;
