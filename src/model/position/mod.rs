@@ -21,11 +21,9 @@ impl Position {
         match position.len() {
             2 => {
                 let mut characters = position.chars();
-                let file_option = File::from(characters.next().unwrap());
-                let rank_option = Rank::from(characters.next().unwrap());
 
-                if let Some(file) = file_option {
-                    if let Some(rank) = rank_option {
+                if let Some(file) = File::from(characters.next().unwrap()) {
+                    if let Some(rank) = Rank::from(characters.next().unwrap()) {
                         return Some(Position::new(file, rank));
                     }
                 }
@@ -38,3 +36,6 @@ impl Position {
         None
     }
 }
+
+#[cfg(test)]
+mod tests;

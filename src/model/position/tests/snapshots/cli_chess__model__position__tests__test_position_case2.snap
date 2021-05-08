@@ -1,0 +1,11 @@
+---
+source: src/model/position/tests/mod.rs
+expression: position
+
+---
+Some(
+    Position {
+        rank: _5,
+        file: E,
+    },
+)

@@ -30,15 +30,15 @@ impl File {
     }
 
     pub fn from(file: char) -> Option<Self> {
-        match file {
-            'A' | 'a' => Some(File::A),
-            'B' | 'b' => Some(File::B),
-            'C' | 'c' => Some(File::C),
-            'D' | 'd' => Some(File::D),
-            'E' | 'e' => Some(File::E),
-            'F' | 'f' => Some(File::F),
-            'G' | 'g' => Some(File::G),
-            'H' | 'h' => Some(File::H),
+        match file.to_ascii_lowercase() {
+            'a' => Some(File::A),
+            'b' => Some(File::B),
+            'c' => Some(File::C),
+            'd' => Some(File::D),
+            'e' => Some(File::E),
+            'f' => Some(File::F),
+            'g' => Some(File::G),
+            'h' => Some(File::H),
             _ => {
                 error!("Can not convert '{}' to a file.", file);
                 None
