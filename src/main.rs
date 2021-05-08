@@ -10,7 +10,7 @@ mod board;
 mod movement;
 mod piece;
 mod position;
-mod pratice;
+mod practice;
 mod utilities;
 
 fn main() {
@@ -36,13 +36,13 @@ fn repl() {
         match read().trim() {
             "help" => {
                 println!("exit - exit the application.");
-                println!("pratice - start a new pratice game.");
+                println!("practice - start a new practice game.");
             }
             "exit" => {
                 std::process::exit(0);
             }
-            "pratice" => {
-                pratice::repl();
+            "practice" => {
+                practice::repl();
             }
             _ => {
                 println!("Did not understand the command...");
@@ -54,7 +54,7 @@ fn repl() {
 fn read() -> String {
     let mut buffer = String::new();
 
-    println!("What would you like to do [pratice]?");
+    println!("What would you like to do [practice]?");
     print!(" > ");
     let _ = stdout().flush();
 
