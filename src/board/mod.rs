@@ -3,11 +3,11 @@ use std::collections::HashMap;
 use crate::board::utilities::{get_positions_with_class, get_positions_with_colour};
 use crate::model::piece::class::Class;
 use crate::model::piece::colour::Colour;
-use crate::model::piece::*;
+use crate::model::piece::Piece;
+use crate::model::position::file::File;
+use crate::model::position::rank::Rank;
+use crate::model::position::Position;
 use crate::movement::Movement;
-use crate::position::file::File;
-use crate::position::Position;
-use crate::position::rank::Rank;
 
 pub mod initial_board;
 mod pawn;
@@ -57,9 +57,9 @@ pub fn move_piece(
 pub fn get_board(piece_positions: &HashMap<Position, Piece>) -> Vec<String> {
     let mut board: Vec<String> = vec![];
 
-    for rank in Rank::iterator().rev() {
+    for rank in Rank::iter().rev() {
         let mut rank_representation = String::new();
-        for file in File::iterator() {
+        for file in File::iter() {
             match piece_positions.get(&Position::new(*file, *rank)) {
                 Some(piece) => rank_representation.push_str(&format!(" {}", piece.get_character())),
                 None => rank_representation.push_str(" -"),

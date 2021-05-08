@@ -3,7 +3,7 @@ use std::iter::FromIterator;
 use serde::Serialize;
 
 use crate::model::piece::class::Class;
-use crate::position::{get_position, Position};
+use crate::model::position::*;
 
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy, Serialize)]
 pub struct Movement {
@@ -18,7 +18,7 @@ pub fn to_movement(movement: &str) -> Option<Movement> {
             let character = characters.next().unwrap();
             let position = &String::from_iter(characters);
             if let Some(class) = Class::from(character) {
-                if let Some(destination) = get_position(position) {
+                if let Some(destination) = Position::from(position) {
                     return Some(Movement {
                         class: Some(class),
                         destination,
@@ -27,7 +27,7 @@ pub fn to_movement(movement: &str) -> Option<Movement> {
             }
         }
         2 => {
-            if let Some(destination) = get_position(movement) {
+            if let Some(destination) = Position::from(movement) {
                 return Some(Movement {
                     class: None,
                     destination,

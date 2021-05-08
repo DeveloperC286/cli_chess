@@ -1,7 +1,7 @@
 use std::io::{stdin, stdout, Write};
 
-use crate::board::{get_board, move_piece, print_board};
 use crate::board::initial_board::get_initial_board;
+use crate::board::{get_board, move_piece, print_board};
 use crate::model::piece::colour::Colour;
 use crate::movement::to_movement;
 

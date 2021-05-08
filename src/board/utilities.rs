@@ -3,8 +3,8 @@ use std::collections::HashMap;
 use crate::model::piece::class::Class;
 use crate::model::piece::colour::Colour;
 use crate::model::piece::Piece;
-use crate::position::file::File;
-use crate::position::Position;
+use crate::model::position::file::File;
+use crate::model::position::Position;
 
 pub fn get_positions_with_colour(
     positions: Vec<Position>,

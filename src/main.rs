@@ -7,11 +7,10 @@ use std::io::{stdin, stdout, Write};
 use console::Term;
 
 mod board;
+mod model;
 mod movement;
-mod position;
 mod practice;
 mod utilities;
-mod model;
 
 fn main() {
     pretty_env_logger::init();
