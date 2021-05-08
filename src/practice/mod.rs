@@ -12,6 +12,7 @@ pub fn repl() {
     let mut turn = 0;
     let mut moves = String::new();
     let mut toggle_board = false;
+    let mut print_rank_and_file = false;
 
     help();
     loop {
@@ -24,10 +25,13 @@ pub fn repl() {
                 return;
             }
             "board" => {
-                print_board(get_board(&piece_positions));
+                print_board(get_board(&piece_positions), print_rank_and_file);
             }
             "toggle-board" => {
                 toggle_board = !toggle_board;
+            }
+            "toggle-rand-and-file" => {
+                print_rank_and_file = !print_rank_and_file;
             }
             _ => match to_movement(&*input) {
                 Some(movement) => {
@@ -49,7 +53,7 @@ pub fn repl() {
 
                     if toggle_board {
                         println!();
-                        print_board(get_board(&piece_positions));
+                        print_board(get_board(&piece_positions), print_rank_and_file);
                     }
                 }
                 None => {
@@ -66,6 +70,7 @@ fn help() {
     println!("exit - return to the main menu.");
     println!("board - print the chess board.");
     println!("toggle-board - print the chess board after ever move.");
+    println!("toggle-rand-and-file - print the rank and file with the chess board.");
     println!("<chess move> - move a chess piece.");
     println!();
 }
