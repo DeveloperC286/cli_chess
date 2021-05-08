@@ -36,7 +36,7 @@ impl Menu {
                     break;
                 }
                 "practice" => {
-                    crate::mode::practice::repl();
+                    crate::mode::practice::Practice::repl();
                 }
                 _ => {
                     println!("Did not understand the command...");
