@@ -11,37 +11,36 @@ lazy_static! {
     pub static ref INITIAL_BOARD: HashMap<Position, Piece> = {
         let mut initial_board = HashMap::new();
         // Black
-        let black_rank = Rank::_8;
         initial_board.insert(
-            Position::new(File::A, black_rank),
+            Position::new(File::A, Rank::_8),
             Piece::new(Class::Rook, Colour::Black),
         );
         initial_board.insert(
-            Position::new(File::B, black_rank),
+            Position::new(File::B, Rank::_8),
             Piece::new(Class::Knight, Colour::Black),
         );
         initial_board.insert(
-            Position::new(File::C, black_rank),
+            Position::new(File::C, Rank::_8),
             Piece::new(Class::Bishop, Colour::Black),
         );
         initial_board.insert(
-            Position::new(File::D, black_rank),
+            Position::new(File::D, Rank::_8),
             Piece::new(Class::Queen, Colour::Black),
         );
         initial_board.insert(
-            Position::new(File::E, black_rank),
+            Position::new(File::E, Rank::_8),
             Piece::new(Class::King, Colour::Black),
         );
         initial_board.insert(
-            Position::new(File::F, black_rank),
+            Position::new(File::F, Rank::_8),
             Piece::new(Class::Bishop, Colour::Black),
         );
         initial_board.insert(
-            Position::new(File::G, black_rank),
+            Position::new(File::G, Rank::_8),
             Piece::new(Class::Knight, Colour::Black),
         );
         initial_board.insert(
-            Position::new(File::H, black_rank),
+            Position::new(File::H, Rank::_8),
             Piece::new(Class::Rook, Colour::Black),
         );
 
@@ -54,37 +53,36 @@ lazy_static! {
         }
 
         //White
-        let white_rank = Rank::_1;
         initial_board.insert(
-            Position::new(File::A, white_rank),
+            Position::new(File::A, Rank::_1),
             Piece::new(Class::Rook, Colour::White),
         );
         initial_board.insert(
-            Position::new(File::B, white_rank),
+            Position::new(File::B, Rank::_1),
             Piece::new(Class::Knight, Colour::White),
         );
         initial_board.insert(
-            Position::new(File::C, white_rank),
+            Position::new(File::C, Rank::_1),
             Piece::new(Class::Bishop, Colour::White),
         );
         initial_board.insert(
-            Position::new(File::D, white_rank),
+            Position::new(File::D, Rank::_1),
             Piece::new(Class::Queen, Colour::White),
         );
         initial_board.insert(
-            Position::new(File::E, white_rank),
+            Position::new(File::E, Rank::_1),
             Piece::new(Class::King, Colour::White),
         );
         initial_board.insert(
-            Position::new(File::F, white_rank),
+            Position::new(File::F, Rank::_1),
             Piece::new(Class::Bishop, Colour::White),
         );
         initial_board.insert(
-            Position::new(File::G, white_rank),
+            Position::new(File::G, Rank::_1),
             Piece::new(Class::Knight, Colour::White),
         );
         initial_board.insert(
-            Position::new(File::H, white_rank),
+            Position::new(File::H, Rank::_1),
             Piece::new(Class::Rook, Colour::White),
         );
 
