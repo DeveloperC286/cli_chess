@@ -8,7 +8,7 @@ use crate::model::position::rank::Rank;
 use crate::model::position::Position;
 
 lazy_static! {
-    pub static ref INITIAL_BOARD: HashMap<Position, Piece> = {
+    pub (super) static ref INITIAL_PIECE_POSITIONS: HashMap<Position, Piece> = {
         let mut initial_board = HashMap::new();
         // Black
         initial_board.insert(

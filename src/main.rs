@@ -4,7 +4,6 @@ extern crate lazy_static;
 extern crate log;
 extern crate pretty_env_logger;
 
-mod board;
 mod mode;
 mod model;
 mod reporter;

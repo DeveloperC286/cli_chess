@@ -1,6 +1,5 @@
-use crate::board::{get_board, move_piece};
+use crate::model::game::Game;
 use crate::model::movement::Movement;
-use crate::model::piece::colour::Colour;
 
 pub struct Practice {}
 
@@ -17,17 +16,8 @@ impl Practice {
             println!();
         }
 
-        fn next_turn(colour: Colour) -> Colour {
-            match colour {
-                Colour::White => Colour::Black,
-                Colour::Black => Colour::White,
-            }
-        }
         println!("New practice game...");
-        let mut piece_positions = crate::board::initial_board::INITIAL_BOARD.clone();
-        let mut colours_turn = Colour::White;
-        let mut turn = 0;
-        let mut moves = String::new();
+        let mut game = Game::new();
         let mut toggle_board = false;
         let mut print_rank_and_file = false;
 
@@ -42,7 +32,10 @@ impl Practice {
                     return;
                 }
                 "board" => {
-                    crate::reporter::print_board(get_board(&piece_positions), print_rank_and_file);
+                    crate::reporter::print_board(
+                        game.get_board_representation(),
+                        print_rank_and_file,
+                    );
                 }
                 "toggle-board" => {
                     toggle_board = !toggle_board;
@@ -51,31 +44,18 @@ impl Practice {
                     print_rank_and_file = !print_rank_and_file;
                 }
                 _ => match Movement::from(&*input) {
-                    Some(movement) => {
-                        if let Some(updated_piece_positions) =
-                            move_piece(colours_turn, movement, &piece_positions)
-                        {
-                            //move piece
-                            piece_positions = updated_piece_positions;
-
-                            //update state for next turn
-                            if colours_turn == Colour::White {
-                                turn += 1;
-                                moves.push_str(&format!("{}. ", turn));
+                    Some(movement) => match game.move_piece(movement) {
+                        Ok(()) => {
+                            if toggle_board {
+                                println!();
+                                crate::reporter::print_board(
+                                    game.get_board_representation(),
+                                    print_rank_and_file,
+                                );
                             }
-                            colours_turn = next_turn(colours_turn);
-                            moves.push_str(&format!("{} ", input));
-                            println!("{}", moves);
                         }
-
-                        if toggle_board {
-                            println!();
-                            crate::reporter::print_board(
-                                get_board(&piece_positions),
-                                print_rank_and_file,
-                            );
-                        }
-                    }
+                        Err(()) => {}
+                    },
                     None => {
                         println!("'{}' is not a recognised command or movement.", input);
                     }
