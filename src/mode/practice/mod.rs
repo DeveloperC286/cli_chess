@@ -1,4 +1,4 @@
-use crate::board::{get_board, move_piece, print_board};
+use crate::board::{get_board, move_piece};
 use crate::model::movement::Movement;
 use crate::model::piece::colour::Colour;
 
@@ -42,7 +42,7 @@ impl Practice {
                     return;
                 }
                 "board" => {
-                    print_board(get_board(&piece_positions), print_rank_and_file);
+                    crate::reporter::print_board(get_board(&piece_positions), print_rank_and_file);
                 }
                 "toggle-board" => {
                     toggle_board = !toggle_board;
@@ -70,7 +70,10 @@ impl Practice {
 
                         if toggle_board {
                             println!();
-                            print_board(get_board(&piece_positions), print_rank_and_file);
+                            crate::reporter::print_board(
+                                get_board(&piece_positions),
+                                print_rank_and_file,
+                            );
                         }
                     }
                     None => {

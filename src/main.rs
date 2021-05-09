@@ -7,6 +7,7 @@ extern crate pretty_env_logger;
 mod board;
 mod mode;
 mod model;
+mod reporter;
 
 fn main() {
     pretty_env_logger::init();

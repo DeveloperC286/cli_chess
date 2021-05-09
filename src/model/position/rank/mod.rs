@@ -16,7 +16,7 @@ pub enum Rank {
 
 impl Rank {
     pub fn iter() -> Iter<'static, Self> {
-        static RANKS: [Rank; 8] = [
+        [
             Rank::_1,
             Rank::_2,
             Rank::_3,
@@ -25,8 +25,8 @@ impl Rank {
             Rank::_6,
             Rank::_7,
             Rank::_8,
-        ];
-        RANKS.iter()
+        ]
+        .iter()
     }
 
     pub fn from(rank: char) -> Option<Self> {

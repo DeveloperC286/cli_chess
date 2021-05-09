@@ -16,7 +16,7 @@ pub enum File {
 
 impl File {
     pub fn iter() -> Iter<'static, Self> {
-        static FILES: [File; 8] = [
+        [
             File::A,
             File::B,
             File::C,
@@ -25,8 +25,8 @@ impl File {
             File::F,
             File::G,
             File::H,
-        ];
-        FILES.iter()
+        ]
+        .iter()
     }
 
     pub fn from(file: char) -> Option<Self> {
