@@ -37,6 +37,16 @@ impl Game {
             .filter(|(_, piece)| piece.class == Class::Pawn)
             .filter(|(position, _)| position.file == movement.destination.file)
             .filter(|(position, _)| position.rank.difference(movement.destination.rank) <= 2)
+            .filter(|(position, piece)| {
+                if position.rank.difference(movement.destination.rank) > 1 {
+                    return match piece.colour {
+                        Colour::White => position.rank == Rank::_2,
+                        Colour::Black => position.rank == Rank::_7,
+                    };
+                }
+
+                true
+            })
             .collect();
 
         let mut possible_pieces_to_move: HashMap<Position, Piece> = HashMap::new();
