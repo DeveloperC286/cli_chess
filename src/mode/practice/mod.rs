@@ -54,7 +54,9 @@ impl Practice {
                                 );
                             }
                         }
-                        Err(()) => {}
+                        Err(error) => {
+                            println!("{:?}", error)
+                        }
                     },
                     None => {
                         println!("'{}' is not a recognised command or movement.", input);

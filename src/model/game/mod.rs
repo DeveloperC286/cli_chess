@@ -15,6 +15,11 @@ pub struct Game {
     piece_positions: HashMap<Position, Piece>,
 }
 
+#[derive(Debug, PartialEq, Eq)]
+pub enum MovementError {
+    NoPieceCanMakeMove,
+}
+
 impl Game {
     pub fn new() -> Self {
         Game {
@@ -24,7 +29,7 @@ impl Game {
         }
     }
 
-    pub fn move_piece(&mut self, movement: Movement) -> Result<(), ()> {
+    pub fn move_piece(&mut self, movement: Movement) -> Result<(), MovementError> {
         let potential_pieces_to_move: HashMap<Position, Piece> = self
             .piece_positions
             .clone()
@@ -76,7 +81,7 @@ impl Game {
             }
         }
 
-        Err(())
+        Err(MovementError::NoPieceCanMakeMove)
     }
 
     pub fn get_board_representation(&self) -> Vec<String> {
