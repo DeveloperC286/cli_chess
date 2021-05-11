@@ -1,79 +1,120 @@
 use super::*;
-use crate::model::game::MovementError;
 
-#[rstest(movement, case("e5"), case("e6"), case("e7"), case("e8"))]
-fn test_white_initial_one_or_two_rank_only(movement: &str) {
+fn new_movement(file: File, rank: Rank) -> Movement {
+    Movement {
+        class: None,
+        destination: Position { file, rank },
+    }
+}
+
+const WHITE_RANKS: [Rank; 4] = [Rank::_5, Rank::_6, Rank::_7, Rank::_8];
+const WHITE_POSSIBLE_RANKS: [Rank; 2] = [Rank::_3, Rank::_4];
+const BLACK_RANKS: [Rank; 4] = [Rank::_1, Rank::_2, Rank::_3, Rank::_4];
+const BLACK_POSSIBLE_RANKS: [Rank; 2] = [Rank::_5, Rank::_6];
+
+#[test]
+fn test_white_initial_pawn_move_can_move_one_or_two_ranks() {
+    for file in File::iter() {
+        for rank in WHITE_POSSIBLE_RANKS.iter() {
+            // Given
+            let mut game = crate::model::game::Game::new();
+
+            // When/Then
+            assert_eq!(Ok(()), game.move_piece(new_movement(*file, *rank)));
+        }
+    }
+}
+
+#[test]
+fn test_white_initial_pawn_move_cant_move_more_than_two_ranks() {
     // Given
     let mut game = crate::model::game::Game::new();
 
     // When/Then
-    let movement = Movement::from(movement).unwrap();
-    assert_eq!(
-        Err(MovementError::NoPieceCanMakeMove),
-        game.move_piece(movement)
-    );
+    for file in File::iter() {
+        for rank in WHITE_RANKS.iter() {
+            assert_eq!(
+                Err(MovementError::NoPieceCanMakeMove),
+                game.move_piece(new_movement(*file, *rank))
+            );
+        }
+    }
 }
 
-#[rstest(movement, case("e4"), case("e3"), case("e2"), case("e1"))]
-fn test_black_initial_one_or_two_rank_only(movement: &str) {
+#[test]
+fn test_black_initial_pawn_move_can_move_one_or_two_ranks() {
+    for file in File::iter() {
+        for rank in BLACK_POSSIBLE_RANKS.iter() {
+            // Given
+            let mut game = crate::model::game::Game::new();
+            game.move_piece(Movement::from("a3").unwrap()).unwrap();
+
+            // When/Then
+            assert_eq!(Ok(()), game.move_piece(new_movement(*file, *rank)));
+        }
+    }
+}
+
+#[test]
+fn test_black_initial_pawn_move_cant_move_more_than_two_ranks() {
     // Given
     let mut game = crate::model::game::Game::new();
     game.move_piece(Movement::from("a3").unwrap()).unwrap();
 
     // When/Then
-    let movement = Movement::from(movement).unwrap();
-    assert_eq!(
-        Err(MovementError::NoPieceCanMakeMove),
-        game.move_piece(movement)
-    );
+    for file in File::iter() {
+        for rank in BLACK_RANKS.iter() {
+            assert_eq!(
+                Err(MovementError::NoPieceCanMakeMove),
+                game.move_piece(new_movement(*file, *rank))
+            );
+        }
+    }
 }
 
-#[rstest(file, case("a"), case("b"), case("c"), case("d"), case("e"), case("f"))]
-fn test_white_only_one_after_initial(file: &str) {
-    // Given
-    let mut game = crate::model::game::Game::new();
-    // First white move
-    game.move_piece(Movement::from(&*format!("{}3", file)).unwrap())
-        .unwrap();
-    // First black move
-    game.move_piece(Movement::from("a6").unwrap()).unwrap();
+#[test]
+fn test_white_only_one_after_initial() {
+    for file in File::iter() {
+        // Given
+        let mut game = crate::model::game::Game::new();
 
-    // When/Then
-    for rank in 5..9 {
-        // Second white move can't move more than one
-        assert_eq!(
-            Err(MovementError::NoPieceCanMakeMove),
-            game.move_piece(Movement::from(&*format!("{}{}", file, rank)).unwrap())
-        );
+        // First white move
+        game.move_piece(new_movement(*file, Rank::_3)).unwrap();
+        // First black move
+        game.move_piece(Movement::from("a6").unwrap()).unwrap();
+
+        // When/Then
+        for rank in WHITE_RANKS.iter() {
+            // Second white move can't move more than one
+            assert_eq!(
+                Err(MovementError::NoPieceCanMakeMove),
+                game.move_piece(new_movement(*file, *rank))
+            );
+        }
     }
-
-    game.move_piece(Movement::from(&*format!("{}4", file)).unwrap())
-        .unwrap();
 }
 
-#[rstest(file, case("a"), case("b"), case("c"), case("d"), case("e"), case("f"))]
-fn test_black_only_one_after_initial(file: &str) {
-    // Given
-    let mut game = crate::model::game::Game::new();
-    // First white move
-    game.move_piece(Movement::from("a3").unwrap()).unwrap();
-    // First black move
-    game.move_piece(Movement::from(&*format!("{}6", file)).unwrap())
-        .unwrap();
-    // Second white move
-    game.move_piece(Movement::from("a4").unwrap()).unwrap();
+#[test]
+fn test_black_only_one_after_initial() {
+    for file in File::iter() {
+        // Given
+        let mut game = crate::model::game::Game::new();
+        // First white move
+        game.move_piece(Movement::from("a3").unwrap()).unwrap();
+        // First black move
+        game.move_piece(new_movement(*file, Rank::_6)).unwrap();
+        // Second white move
+        game.move_piece(Movement::from("a4").unwrap()).unwrap();
 
-    // When/Then
-    for rank in 1..5 {
-        // Second black move can't move more than one
-        assert_eq!(
-            Err(MovementError::NoPieceCanMakeMove),
-            game.move_piece(Movement::from(&*format!("{}{}", file, rank)).unwrap())
-        );
+        // When/Then
+        for rank in BLACK_RANKS.iter() {
+            // Second black move can't move more than one
+            assert_eq!(
+                Err(MovementError::NoPieceCanMakeMove),
+                game.move_piece(new_movement(*file, *rank))
+            );
+        }
     }
-
-    game.move_piece(Movement::from(&*format!("{}5", file)).unwrap())
-        .unwrap();
 }
 
 //TODO blocked.
