@@ -1,5 +1,3 @@
-use std::iter::FromIterator;
-
 use serde::Serialize;
 
 use crate::model::piece::class::Class;
@@ -17,9 +15,10 @@ impl Movement {
             3 => {
                 let mut characters = movement.chars();
                 let character = characters.next().unwrap();
-                let position = &String::from_iter(characters);
+                let position = characters.collect::<String>();
+
                 if let Some(class) = Class::from(character) {
-                    if let Some(destination) = Position::from(position) {
+                    if let Some(destination) = Position::from(&position) {
                         return Some(Movement {
                             class: Some(class),
                             destination,
