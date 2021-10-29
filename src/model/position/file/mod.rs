@@ -1,6 +1,5 @@
-use std::slice::Iter;
-
 use serde::Serialize;
+use std::slice::Iter;
 
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy, Serialize)]
 pub enum File {
