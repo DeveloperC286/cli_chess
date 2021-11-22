@@ -1,12 +1,10 @@
-use serde::Serialize;
-
 use crate::model::piece::class::Class;
 use crate::model::piece::colour::Colour;
 
 pub mod class;
 pub mod colour;
 
-#[derive(Debug, PartialEq, Eq, Hash, Clone, Copy, Serialize)]
+#[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
 pub struct Piece {
     pub class: Class,
     pub colour: Colour,

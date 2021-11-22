@@ -1,6 +1,4 @@
-use serde::Serialize;
-
-#[derive(Debug, PartialEq, Eq, Hash, Clone, Copy, Serialize)]
+#[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
 pub enum Class {
     King,
     Queen,

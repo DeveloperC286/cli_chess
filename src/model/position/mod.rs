@@ -1,12 +1,10 @@
-use serde::Serialize;
-
 use crate::model::position::file::File;
 use crate::model::position::rank::Rank;
 
 pub mod file;
 pub mod rank;
 
-#[derive(Debug, PartialEq, Eq, Hash, Clone, Copy, Serialize)]
+#[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
 pub struct Position {
     pub rank: Rank,
     pub file: File,
