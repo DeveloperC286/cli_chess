@@ -1,7 +1,7 @@
 use crate::model::piece::class::Class;
 use crate::model::position::*;
 
-#[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
+#[derive(Debug)]
 pub struct Movement {
     pub class: Option<Class>,
     pub destination: Position,

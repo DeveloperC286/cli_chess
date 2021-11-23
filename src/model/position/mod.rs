@@ -4,7 +4,7 @@ use crate::model::position::rank::Rank;
 pub mod file;
 pub mod rank;
 
-#[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
+#[derive(Debug, PartialEq, Eq, Hash, Clone)]
 pub struct Position {
     pub rank: Rank,
     pub file: File,
