@@ -12,7 +12,7 @@ categories = ["games", "command-line-utilities"]
 
 
 [dependencies]
-# Logging.
+# For logging.
 log = "0.4.14"
 pretty_env_logger = "0.4.0"
 
@@ -24,10 +24,10 @@ lazy_static = "1.4.0"
 
 
 [dev-dependencies]
-# Parametrized testing
-rstest = "0.11.0"
+# For parametrized testing.
+rstest = "0.12.0"
 
-# Snapshot testing.
+# For snapshot testing.
 insta = "1.8.0"
 
 
