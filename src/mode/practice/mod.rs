@@ -44,8 +44,8 @@ impl Practice {
                     print_rank_and_file = !print_rank_and_file;
                 }
                 _ => match Movement::from(&*input) {
-                    Some(movement) => match game.move_piece(movement) {
-                        Ok(()) => {
+                    Some(movement) => {
+                        if let Ok(()) = game.move_piece(movement) {
                             if toggle_board {
                                 println!();
                                 crate::reporter::print_board(
@@ -54,8 +54,7 @@ impl Practice {
                                 );
                             }
                         }
-                        Err(()) => {}
-                    },
+                    }
                     None => {
                         println!("'{}' is not a recognised command or movement.", input);
                     }

@@ -1,4 +1,5 @@
 use std::collections::HashMap;
+use std::fmt::Write;
 
 use crate::model::movement::Movement;
 use crate::model::piece::class::Class;
@@ -77,7 +78,7 @@ impl Game {
                 for file in File::iter() {
                     match self.piece_positions.get(&Position::new(*file, *rank)) {
                         Some(piece) => {
-                            rank_representation.push_str(&format!(" {}", piece.get_character()))
+                            let _ = write!(rank_representation, " {}", piece.get_character());
                         }
                         None => rank_representation.push_str(" -"),
                     }
