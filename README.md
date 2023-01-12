@@ -38,7 +38,7 @@ If you do not trust the provided binaries another option is to compile your own 
 Checkout the code repository locally, change into the repository's directory and then build via Cargo.
 Using the `--release` flag produces an optimised binary but takes longer to compile.
 
-```
+```sh
 git clone git@gitlab.com:DeveloperC/cli_chess.git
 cd cli_chess/
 cargo build --release
@@ -50,7 +50,7 @@ The compiled binary is present in `target/release/cli_chess`.
 ## Compiling via Cargo
 Cargo is the Rust package manager, the `install` sub-command pulls from [crates.io](https://crates.io/crates/cli_chess) and then compiles the binary locally, placing the compiled binary at `${HOME}/.cargo/bin/cli_chess`.
 
-```
+```sh
 cargo install cli_chess
 ```
 
@@ -60,7 +60,7 @@ For certain environments such as CICD etc you may want to pin the version.
 
 e.g.
 
-```
+```sh
 cargo install cli_chess --version 0.2.0
 ```
 
@@ -68,7 +68,7 @@ Rather than pinning to a specific version you can specify the major or minor ver
 
 e.g.
 
-```
+```sh
 cargo install cli_chess --version ^0
 ```
 
@@ -78,7 +78,7 @@ Will download the latest `0.*` release whether that is `0.2.0` or `0.4.9`.
 ## Unit Testing
 The unit test suite has several parameterised tests, Cargo is used to set up and run all the unit tests.
 
-```
+```sh
 cargo test
 ```
 
