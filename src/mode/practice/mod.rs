@@ -43,7 +43,7 @@ impl Practice {
                 "toggle-rand-and-file" => {
                     print_rank_and_file = !print_rank_and_file;
                 }
-                _ => match Movement::from(&*input) {
+                _ => match Movement::from(&input) {
                     Some(movement) => {
                         if let Ok(()) = game.move_piece(movement) {
                             if toggle_board {
