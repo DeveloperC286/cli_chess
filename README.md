@@ -84,4 +84,4 @@ cargo test
 
 
 ## Issues/Feature Requests
-To report an issue or request a new feature use [https://gitlab.com/DeveloperC/cli_chess/-/issues](https://gitlab.com/DeveloperC/cli_chess/-/issues).
+To report an issue or request a new feature use [https://github.com/DeveloperC286/cli_chess/issues](https://github.com/DeveloperC286/cli_chess/issues).
