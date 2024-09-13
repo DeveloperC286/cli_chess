@@ -1,4 +1,5 @@
 {
+  "bootstrap-sha": "54d433e6298e45def86bcd92386b4ce66ef10e48",
   "changelog-type": "github",
   "release-type": "rust",
   "pull-request-title-pattern": "chore: release ${version}",
