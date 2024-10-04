@@ -60,19 +60,23 @@ For certain environments such as CICD etc you may want to pin the version.
 
 e.g.
 
+<!-- x-release-please-start-version -->
 ```sh
 cargo install cli_chess --version 0.2.0
 ```
+<!-- x-release-please-end -->
 
 Rather than pinning to a specific version you can specify the major or minor version.
 
 e.g.
 
+<!-- x-release-please-start-major -->
 ```sh
 cargo install cli_chess --version ^0
 ```
 
 Will download the latest `0.*` release whether that is `0.2.0` or `0.4.9`.
+<!-- x-release-please-end -->
 
 
 ## Unit Testing
