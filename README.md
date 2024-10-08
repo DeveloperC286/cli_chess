@@ -1,3 +1,10 @@
+
+> 🚧 Archived 🚧
+>
+> Since this project's inception, alternative solutions have emerged
+>
+> * https://github.com/trevorbayless/cli-chess ♟️
+
 ## CLI Chess
 [![crates.io](https://img.shields.io/crates/v/cli_chess)](https://crates.io/crates/cli_chess)
 [![Continuous Integration (CI)](https://github.com/DeveloperC286/cli_chess/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/DeveloperC286/cli_chess/actions/workflows/continuous-integration.yml)
