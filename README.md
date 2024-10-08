@@ -69,7 +69,7 @@ e.g.
 
 <!-- x-release-please-start-version -->
 ```sh
-cargo install cli_chess --version 0.2.0
+cargo install cli_chess --version 0.2.1
 ```
 <!-- x-release-please-end -->
 
